@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block body %}
+<div class="blog-row">
+    <div class="blog-title">
+        <h1>Editing {{ cube_name }}</h1>
+    </div>
+    <div class="gray-content" style="order:2;">
+        <h3>{{ add_card }}</h3>
+        <p style="color: red; font-weight:bold;">{{ message }}</p>
+        <form action="{{ url_for('cube_edit', cube_name=cube_name) }}" method="POST">
+            <label for="card">Add Card: </label>
+            <input type="text" name="card" id="card"><br><br>
+            <p>Strategies:</p>
+            {% for strat in edit_cube['cube_strats'] %}
+            <input type="checkbox" id="{{ strat }}" value="{{ strat }}">
+            <label for="{{ strat }}">{{ strat }}</label><br>
+            {% endfor %}
+            <br><input type="submit" name="btn" id="Run" value="Add">
+        </form>
+    </div>
+</div>
+{% endblock %}

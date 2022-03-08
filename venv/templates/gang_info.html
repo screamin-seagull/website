@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block body %}
+<div class="blog-title">
+    <h2>About the Algorithm</h2>
+</div>
+<div class="faq-content">
+    <h3>How it works: 
+        <p>1. The player inputs any number between 1 and 500
+        <br><br>2. The algorithm creates a set of 20 random guesses of numbers in that range. This is called a "Generation"
+        <br><br>3. The algorithm checks how close each guess is to the player's number and gives them a "Fitness" score (higher numbers for closer guesses)
+        <br><br>4. The algorithm takes the guesses with the 5 highest fitness scores and sets them aside, preparing to create a new "Generation"
+        <br><br>5. The 5 best guesses are modified (4 times each) by adding a random number between -10 and 10 (here called "Mutation") creating a new, more refined generation of 20 guesses
+        <br><br>6. This process is repeated until a generation containing the player's number is created</p>
+        <br>Okay, that's pretty neat, right? But what is it good for?<br>
+        <br>While guessing a number isn't that useful, the same basic steps can be applied to solve all kinds of problems. This game is just to show the concept, but I'll be adding cooler stuff with it later</h3>
+        <br><a href="/guesser"><< Back to the game</a>
+</div>
+
+{% endblock %}

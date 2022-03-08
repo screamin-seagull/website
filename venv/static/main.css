@@ -1,0 +1,159 @@
+body,h1,h2,h3,h4,h5 
+{
+    font-family: "Raleway", sans-serif
+}
+
+h1
+{
+    font-size:3.5em;
+}
+
+h2
+{
+    font-size: 2.8em;
+}
+
+h3
+{
+    font-size: 2em;
+}
+
+p
+{
+    font-size:1.1em;
+}
+
+input[type=submit]
+{
+    background-color: #c9a400;
+    color: white;
+    padding: 14px 25px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid white;
+}
+
+body
+{
+    background: url(Images/tiles.png) repeat 0 0 Purple;
+}
+
+header
+{
+    color: White;
+}
+
+.blog-flex
+{
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position:relative;
+}
+
+.blog-flex,html,body
+{
+    height:99%;
+    margin:1;
+}
+
+.l-sidebar 
+{
+    position: -webkit-sticky;
+    position: sticky;
+    width: 15%;
+    border: 3px solid white;
+    color:white;
+    padding: 5px;
+    background-color: #c9a400;
+    order: 1;
+    text-align: center;
+    overflow: auto;
+}
+
+.gray-content a
+{
+    background-color: #c9a400;
+    color: white;
+    padding: 14px 25px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid white;
+}
+
+.l-sidebar a 
+{
+    background-color: green;
+    color: white;
+    padding: 14px 25px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid white;
+}
+
+.blog-title
+{
+    margin:auto;
+    width:70%;
+    height:10%;
+    padding:1em;
+    order:1;
+
+}
+
+.blog-content
+{
+    margin-left:auto;
+    margin-right:auto;
+    position: -webkit-sticky;
+    position: sticky;
+    width: 80%;
+    background-color:green;
+    color: white;
+    order: 2;
+    border: 3px solid white;
+    text-align: center;
+    overflow: auto;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2em;
+}
+
+.blog-row
+{
+    width: auto;
+}
+
+.gray-content
+{
+    background-color:#333333;
+    color:white;
+    border:3px solid white;
+    width:80%;
+    height:100%;
+    margin:auto;
+    overflow: auto;
+    padding:1em;
+    text-align: left;
+}
+
+.faq-content
+{
+    color:white;
+    text-align: left;
+    margin:auto;
+    padding-left: 3em;
+}
+
+.image-container > img:hover
+{
+    height: 30em;
+    width: auto;
+}
