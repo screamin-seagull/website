@@ -1,10 +1,12 @@
 import os
 from flask import Flask, render_template, request, Blueprint, flash, g, redirect, url_for
 from sqlalchemy import create_engine, MetaData
-from guess_ai import Guesser
+from guess_ai import *
+from bird_scraper import *
 from mtg_cube import *
 import pandas as pd
 import json
+import git
 import scrython as scry
 import asyncio
 
@@ -15,7 +17,6 @@ engine = create_engine('sqlite:////tmp/blog.db')
 
 cube_dir = "venv/static/Cubes"
 comic_folder = os.listdir(os.path.join(app.static_folder, "Comics"))
-home_image = scry.cards.Named(fuzzy="Ornithopter").image_uris()['normal']
 
 
 def get_cubes():
@@ -38,7 +39,11 @@ def default_route():
 
 @app.route("/home")
 def homepage():
-    return render_template("home.html", image=home_image)
+    home_bird = RandomBird()
+    bird_pic = home_bird.main_image
+    bird = home_bird.bird_name
+    return render_template("home.html", bird_image=bird_pic,
+                           bird_name=bird)
 
 
 @app.route("/comics")
