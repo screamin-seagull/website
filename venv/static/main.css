@@ -5,22 +5,22 @@ body,h1,h2,h3,h4,h5
 
 h1
 {
-    font-size:3.5em;
+    font-size:3.5vw;
 }
 
 h2
 {
-    font-size: 2.8em;
+    font-size: 2.8vw;
 }
 
 h3
 {
-    font-size: 2em;
+    font-size: 2vw;
 }
 
 p
 {
-    font-size:1.1em;
+    font-size:1.1vw;
 }
 
 input[type=submit]

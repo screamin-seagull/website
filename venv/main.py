@@ -41,9 +41,10 @@ def default_route():
 def homepage():
     home_bird = RandomBird()
     bird_pic = home_bird.main_image
+    bird_url = home_bird.bird_url
     bird = home_bird.bird_name
     return render_template("home.html", bird_image=bird_pic,
-                           bird_name=bird)
+                           bird_name=bird, bird_url=bird_url)
 
 
 @app.route("/comics")
