@@ -33,6 +33,7 @@ input[type=submit]
     text-decoration: none;
     display: inline-block;
     border: 1px solid white;
+    font-size: 1.1vw;
 }
 
 body
@@ -96,6 +97,7 @@ header
     text-decoration: none;
     display: inline-block;
     border: 1px solid white;
+    font-size: 1.1vw;
 }
 
 .blog-title
