@@ -1,0 +1,19 @@
+{% extends 'base.html.j2' %}
+
+{% block head %}
+
+{% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block body %}
+<div class="blog-row">
+    <div class="blog-title">
+        <h1>View Cube</h1>
+    </div>
+    <div class="gray-content" style="order:2;">
+        <h3>{{ view_cube['cube_name'] }}</h3>
+        <p>{{ view_cube['cube_description'] }}</p>
+        <a href="/cube_tool/edit/{{ cube_name }}">Edit</a>
+    </div>
+</div>
+
+{% endblock %}
