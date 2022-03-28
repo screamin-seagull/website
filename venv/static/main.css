@@ -89,7 +89,7 @@ header
 
 .l-sidebar a 
 {
-    background-color: green;
+    background-color: #447733;
     color: white;
     padding: 14px 25px;
     font-weight: bold;
@@ -117,7 +117,7 @@ header
     position: -webkit-sticky;
     position: sticky;
     width: 80%;
-    background-color:green;
+    background-color:#447733;
     color: white;
     order: 2;
     border: 3px solid white;

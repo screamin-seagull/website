@@ -140,6 +140,11 @@ def cube_edit(cube_name):
                                cube_name=cube_name, add_card=add)
 
 
+@app.route("/bird_scraper", methods=["GET", "POST"])
+def bird_scraper():
+    return render_template("bird_scraper.html.j2")
+
+
 @app.route("/skyehaven", methods=["GET", "POST"])
 def skyehaven():
     if request.method == "GET":
