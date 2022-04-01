@@ -126,7 +126,7 @@ def cube_edit(cube_name):
     if request.method == "GET":
         return render_template("edit_cube.html.j2", edit_cube=edit_cube,
                                cube_name=cube_name)
-    elif request.method == "POS T":
+    elif request.method == "POST":
         asyncio.set_event_loop(asyncio.new_event_loop())  # Check to see if I need to terminate this or anything
         add_input = request.form.get("card")
         try:

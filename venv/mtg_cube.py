@@ -5,7 +5,7 @@ import pandas as pd
 
 
 class Cube:
-    def __init__(self, name, desc, cmdr, strats, pwd):
+    def __init__(self, name, desc, cmdr, strats, pwd, is_new):
         self.card_info = None
         self.name = name
         self.file = "venv/static/Cubes/" + name + ".xlsx"
@@ -14,6 +14,10 @@ class Cube:
         self.cmdr = cmdr
         self.strats = strats
         self.pwd = pwd
+        self.is_new = is_new
+
+
+    def new_cube(self):
         self.cube_info = pd.DataFrame({
             'cube_name': self.name,
             'cube_description': self.desc,
@@ -21,8 +25,6 @@ class Cube:
             'cube_strats': self.strats,
             'cube_pwd': self.pwd
         }, index=[0])
-
-    def write_excel(self):
         self.cube_info.to_excel(self.file, sheet_name='Cube Info', index=False)
 
     def add_card(self, card_name, card_cid, card_strats, card_tags):

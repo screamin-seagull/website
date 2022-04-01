@@ -25,14 +25,14 @@ p
 
 input[type=submit]
 {
-    background-color: #c9a400;
+    background-color: purple;
     color: white;
     padding: 14px 25px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border: 1px solid white;
+    border: 1px solid #ee731c;
     font-size: 1.1vw;
 }
 
@@ -66,10 +66,10 @@ header
     position: -webkit-sticky;
     position: sticky;
     width: 15%;
-    border: 3px solid white;
+    border: 3px solid #ee731c;
     color:white;
     padding: 5px;
-    background-color: #c9a400;
+    background-color: #447733;
     order: 1;
     text-align: center;
     overflow: auto;
@@ -77,26 +77,26 @@ header
 
 .gray-content a
 {
-    background-color: #c9a400;
+    background-color: purple;
     color: white;
     padding: 14px 25px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border: 1px solid white;
+    border: 1px solid #ee731c;
 }
 
 .l-sidebar a 
 {
-    background-color: #447733;
+    background-color: purple;
     color: white;
     padding: 14px 25px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border: 1px solid white;
+    border: 1px solid #ee731c;
     font-size: 1.1vw;
 }
 
@@ -120,7 +120,7 @@ header
     background-color:#447733;
     color: white;
     order: 2;
-    border: 3px solid white;
+    border: 3px solid #ee731c;
     text-align: center;
     overflow: auto;
     align-items: center;
@@ -137,7 +137,7 @@ header
 {
     background-color:#333333;
     color:white;
-    border:3px solid white;
+    border:3px solid #ee731c;
     width:80%;
     height:100%;
     margin:auto;
