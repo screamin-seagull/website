@@ -16,7 +16,6 @@ class Cube:
         self.pwd = pwd
         self.is_new = is_new
 
-
     def new_cube(self):
         self.cube_info = pd.DataFrame({
             'cube_name': self.name,
@@ -37,10 +36,10 @@ class Cube:
         }, index=[0])
         with pd.ExcelWriter(self.file) as writer:
             card_info.to_excel(writer, sheet_name='Cards')
-            #card_info.to_excel(self.file, sheet_name='Cards', index=False)
+            # card_info.to_excel(self.file, sheet_name='Cards', index=False)
 
 
-def get_cube(folder, cube_name):
+def load(folder, cube_name):
     try:
         res_path = folder + "/" + cube_name + ".xlsx"
         cube_info = pd.read_excel(res_path)
@@ -50,6 +49,7 @@ def get_cube(folder, cube_name):
         res_strats = cube_info['cube_strats']
         res_pwd = cube_info['cube_pwd']
         res_cube = Cube(res_name, res_desc, res_cmdr, res_strats, res_pwd)
+        print(res_cube.desc)
         return res_cube
     except FileNotFoundError:
         return "No matching cube"
