@@ -71,8 +71,8 @@ def guesser():
 
 
 @app.route("/info")
-def gang_info():
-    return render_template("info.html")
+def project_info():
+    return render_template("info.html", active_project="guesser")
 
 
 @app.route("/cube_tool")
@@ -134,7 +134,18 @@ def cube_edit(cube_name):
 
 @app.route("/bird_scraper", methods=["GET", "POST"])
 def bird_scraper():
-    return render_template("bird_scraper.html")
+    bird1 = RandomBird()
+    bird1_pic = bird1.main_image
+    bird1_url = bird1.bird_url
+    bird1_name = bird1.bird_name
+    bird2 = RandomBird()
+    bird2_pic = bird2.main_image
+    bird2_url = bird2.bird_url
+    bird2_name = bird2.bird_name
+    return render_template("bird_scraper.html", bird1_image=bird1_pic,
+                           bird1_name=bird1_name, bird1_url=bird1_url,
+                           bird2_image=bird2_pic, bird2_name=bird2_name,
+                           bird2_url=bird2_url)
 
 
 @app.route("/skyehaven", methods=["GET", "POST"])
