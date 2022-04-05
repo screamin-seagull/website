@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+{% block body %}
+<div class="blog-row">
+    <div class="blog-title">
+        <h1><b>Welcome To My Website!</b></h1>
+        <p>I use this to host some cool web apps I come up with sometimes and for some other
+            personal projects. Have a look around and enjoy this complimentary bird chosen 
+            (randomly) just for you!</p>
+    </div>
+    <div class="gray-content" style="order: 2; text-align:center;">
+        <h3>Your Bird:</br>{{ bird_name }}
+            <p style="font-style: italic; margin: 0; font-weight: normal;">(Images retrieved from <a href="https://ebird.org/home">ebird.org</a>)</p>
+        </h3>
+        {% if bird_image in 'https://cdn.download.ams.birds.cornell.edu/api/v1/asset//1200' %}
+            <img src="{{ url_for('static', filename='Images/image_missing.jpg') }}" width="30%" height="auto">
+        {% else %}
+            <img src="{{ bird_image }}" width="40%" height="auto" style="border-radius: 1vw;">
+        {% endif %}
+        </br>
+        <a href="/info">What is this?</a>
+        <a href="{{ bird_url }}">More about this bird</a></br>
+    </div>
+</div>
+{% endblock %}

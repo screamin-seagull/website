@@ -70,9 +70,9 @@ def guesser():
             return render_template("number_guesser.html", output=output)
 
 
-@app.route("/gang_info")
+@app.route("/info")
 def gang_info():
-    return render_template("gang_info.html")
+    return render_template("info.html")
 
 
 @app.route("/cube_tool")

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+{% block body %}
+<div class="blog-row">
+    <div class="blog-title">
+        <h1>Cube List</h1>
+    </div>
+    <div class="gray-content" style="order:2;">
+        {% for cube in cubes %}
+        <p><a href="/cube_tool/view/{{ cube }}">{{ cube }}</a></p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

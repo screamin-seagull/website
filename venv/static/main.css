@@ -10,7 +10,7 @@ h1
 
 h2
 {
-    font-size: 2.8vw;
+    font-size: 2.5vw;
 }
 
 h3
@@ -20,7 +20,7 @@ h3
 
 p
 {
-    font-size:1.1vw;
+    font-size:1vw;
 }
 
 input[type=submit]
@@ -66,7 +66,6 @@ header
 
 .l-sidebar 
 {
-    position: -webkit-sticky;
     position: sticky;
     width: 15%;
     border: 0.3vw solid #f35c00;
@@ -112,7 +111,6 @@ a
 {
     margin-left:auto;
     margin-right:auto;
-    position: -webkit-sticky;
     position: sticky;
     width: 80%;
     background-color:#3b6042f2;
@@ -158,6 +156,36 @@ a
 {
     height: 30em;
     width: auto;
+}
+
+.collapsible {
+    background-color: #661155;
+    color:white;
+    border:none;
+    outline:none;
+    cursor:pointer;
+    width: 60%;
+    border-radius: 0.5vw;
+    margin-top: 0.5vw;
+    text-align: left;
+    box-shadow: inset 0 0 0.4vw magenta;
+    padding: .3vw .5vw;
+    font-size: 1.2vw;
+}
+
+.collapsible-content {
+    display: none;
+    overflow: hidden;
+    background-color: #333333;
+    width: 57%;
+    margin-left: 1%;
+    padding: .3vw .5vw;
+    border-bottom-left-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
+}
+
+.collapsible-content b{
+    color:#f35c00;
 }
 
 ::-webkit-scrollbar{
