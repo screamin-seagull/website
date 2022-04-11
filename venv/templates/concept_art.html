@@ -9,11 +9,29 @@
         <h1>Skyehaven Concept Art</h1>
     </div>
     <div class="gray-content" style="order:2;">
-        <div class="image-container">
+        <div class="art-row">
             {% for concept in concepts %}
-            <img src="/static/Concept Art/{{ concept }}" alt="{{ concept }}" height="150em" width="auto">
+            <div class="art-column">
+                <img src="/static/Concept Art/{{ concept }}" alt="{{ concept }}" 
+                style="height: 5vw; width: 100%; min-height: 80px; min-width: 80px; object-fit: cover;" onclick="myFunction(this);">
+            </div>
             {% endfor %}
+        </div>
+        <div class="art-container">
+            <span onclick="this.parentElement.style.display='none'" class="close-btn">&times;</span>
+            <img id="expandedImg" style="width:75%; align-self:center;">
+            <div id="artimgtext"></div>
         </div>
     </div>
 </div>
+
+<script>
+function myFunction(imgs) {
+    var expandImg = document.getElementById("expandedImg");
+    var imgText = document.getElementById("artimgtext");
+    expandImg.src = imgs.src;
+    imgText.innerHTML = imgs.alt;
+    expandImg.parentElement.style.display = "block";
+}
+</script>
 {% endblock %}

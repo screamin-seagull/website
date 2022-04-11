@@ -20,7 +20,7 @@ h3
 
 p
 {
-    font-size:1vw;
+    font-size:1.1vw;
 }
 
 input[type=submit]
@@ -76,11 +76,6 @@ header
     text-align: left;
     overflow: auto;
     border-radius: 1vw;
-}
-
-.l-sidebar p{
-
-    font-size: 1vw;
 }
 
 a 
@@ -152,12 +147,6 @@ a
     padding-left: 3em;
 }
 
-.image-container > img:hover
-{
-    height: 30em;
-    width: auto;
-}
-
 .collapsible {
     background-color: #661155;
     color:white;
@@ -186,6 +175,50 @@ a
 
 .collapsible-content b{
     color:#f35c00;
+}
+
+.art-column {
+    float: left;
+    width: 8%;
+    padding: 0.1vw;
+}
+
+.art-column img {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.art-column img:hover{
+    opacity: 1;
+}
+
+.art-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.art-container {
+    position: relative;
+    display: none;
+    align-items: center;
+}
+
+#artimgtext {
+    position: absolute;
+    bottom: 1vw;
+    left: 1vw;
+    color: white;
+    font-size: 1vw;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    color: #f35c00;
+    font-size: 2vw;
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar{

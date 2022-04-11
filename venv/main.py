@@ -4,9 +4,6 @@ from sqlalchemy import create_engine, MetaData
 from guess_ai import *
 from bird_scraper import *
 from mtg_cube import *
-import pandas as pd
-import json
-import git
 import scrython as scry
 import asyncio
 
@@ -15,7 +12,6 @@ app.config["SECRET_KEY"] = "k137p!t4"
 bp = Blueprint('blog', __name__)
 engine = create_engine('sqlite:////tmp/blog.db')
 
-cube_dir = "venv/static/Cubes"
 comic_folder = os.listdir(os.path.join(app.static_folder, "Comics"))
 
 
@@ -85,12 +81,13 @@ def create_cube():
     if request.method == "GET":
         return render_template("create_cube.html")
     elif request.method == "POST" and request.form["btn"] == "Create Cube":
+        folder = os.path.join(app.static_folder, 'Cubes/')
         name = request.form.get("cube_name")
         desc = request.form.get("cube_desc")
         cmdr = request.form.get("cmdr")
         strats = request.form.get("cube_strats")
         pwd = request.form.get("password")
-        Cube(name, desc, cmdr, strats, pwd)
+        Cube(folder, name, desc, cmdr, strats, pwd, True)
         return redirect("/cube_tool/view/" + name)
 
 
@@ -100,23 +97,22 @@ def cube_list():
     return render_template("cube_list.html", cubes=cubes)
 
 
-@app.route("/cube_tool/view/<cube_name>", methods=["GET", "POST"])
+@app.route("/cube_tool/view/<cube_name>")
 def cube_view(cube_name):
-    if request.method == "GET":
-        view_cube = load(cube_dir, cube_name)
-        return render_template("display_cube.html", view_cube=view_cube,
-                               cube_name=cube_name)
-    elif request.method == "POST":
-        return render_template("display_cube.html")
+    cube_dir = os.path.join(app.static_folder, 'Cubes/') + cube_name + ".xlsx"
+    view_cube = load(cube_dir)
+    return render_template("display_cube.html", view_cube=view_cube,
+                           cube_name=cube_name)
 
 
 @app.route("/cube_tool/edit/<cube_name>", methods=["GET", "POST"])
 def cube_edit(cube_name):
-    edit_cube = load(cube_dir, cube_name)
-    print(cube_dir, cube_name)
+    cube_dir = os.path.join(app.static_folder, 'Cubes/') + cube_name + ".xlsx"
+    edit_cube = load(cube_dir)
+    strats = edit_cube.strats
     if request.method == "GET":
         return render_template("edit_cube.html", edit_cube=edit_cube,
-                               cube_name=cube_name)
+                               cube_name=cube_name, strats=strats)
     elif request.method == "POST":
         asyncio.set_event_loop(asyncio.new_event_loop())  # Check to see if I need to terminate this or anything
         add_input = request.form.get("card")
@@ -134,18 +130,12 @@ def cube_edit(cube_name):
 
 @app.route("/bird_scraper", methods=["GET", "POST"])
 def bird_scraper():
-    bird1 = RandomBird()
-    bird1_pic = bird1.main_image
-    bird1_url = bird1.bird_url
-    bird1_name = bird1.bird_name
-    bird2 = RandomBird()
-    bird2_pic = bird2.main_image
-    bird2_url = bird2.bird_url
-    bird2_name = bird2.bird_name
-    return render_template("bird_scraper.html", bird1_image=bird1_pic,
-                           bird1_name=bird1_name, bird1_url=bird1_url,
-                           bird2_image=bird2_pic, bird2_name=bird2_name,
-                           bird2_url=bird2_url)
+    bird = RandomBird()
+    bird_pic = bird.main_image
+    bird_url = bird.bird_url
+    bird_name = bird.bird_name
+    return render_template("bird_scraper.html", bird_image=bird_pic,
+                           bird_name=bird_name, bird_url=bird_url)
 
 
 @app.route("/skyehaven", methods=["GET", "POST"])

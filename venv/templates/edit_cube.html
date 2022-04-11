@@ -15,7 +15,7 @@
             <label for="card">Add Card: </label>
             <input type="text" name="card" id="card"><br><br>
             <p>Strategies:</p>
-            {% for strat in edit_cube['cube_strats'] %}
+            {% for strat in strats %}
             <input type="checkbox" id="{{ strat }}" value="{{ strat }}">
             <label for="{{ strat }}">{{ strat }}</label><br>
             {% endfor %}
