@@ -201,7 +201,7 @@ a
 .art-container {
     position: relative;
     display: none;
-    align-items: center;
+    text-align: center;
 }
 
 #artimgtext {
@@ -209,7 +209,11 @@ a
     bottom: 1vw;
     left: 1vw;
     color: white;
-    font-size: 1vw;
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: 0.06vw;
+    font-weight: bold;
+    font-size: 2vw;
+    text-align: center;
 }
 
 .close-btn {
