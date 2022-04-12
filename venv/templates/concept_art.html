@@ -30,7 +30,7 @@ function myFunction(imgs) {
     var expandImg = document.getElementById("expandedImg");
     var imgText = document.getElementById("artimgtext");
     expandImg.src = imgs.src;
-    imgText.innerHTML = imgs.alt;
+    imgText.innerHTML = String(imgs.alt).replace(/\.[^/.]+$/, "");
     expandImg.parentElement.style.display = "block";
 }
 </script>
