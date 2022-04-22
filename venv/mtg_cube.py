@@ -1,4 +1,5 @@
 import pandas as pd
+from openpyxl import load_workbook
 
 
 class Cube:
@@ -6,7 +7,7 @@ class Cube:
         self.card_info = {}
         self.cube_info = {}
         self.name = name
-        self.file = str(folder) + str(name) + ".xlsx"
+        self.file = str(folder)
         self.desc = desc
         self.cmdr = cmdr
         self.strats = strats.split(", ")
@@ -33,9 +34,12 @@ class Cube:
             'card_strats': card_strats,
             'card_tags': card_tags
         }, index=[0])
-        with pd.ExcelWriter(self.file) as writer:
-            card_info.to_excel(writer, sheet_name='Cards')
-            # card_info.to_excel(self.file, sheet_name='Cards', index=False)
+        book = load_workbook(self.file)
+        writer = pd.ExcelWriter(self.file, engine='openpyxl')
+        writer.book = book
+        card_info.to_excel(writer, sheet_name='Cards')
+        writer.save()
+        writer.close()
 
 
 def load(path):

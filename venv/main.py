@@ -1,9 +1,12 @@
 import os
 from flask import Flask, render_template, request, Blueprint, flash, g, redirect, url_for
 from sqlalchemy import create_engine, MetaData
+from matplotlib.figure import Figure
+from io import BytesIO
 from guess_ai import *
 from bird_scraper import *
 from mtg_cube import *
+from SpotifyToybox import *
 import scrython as scry
 import asyncio
 
@@ -153,6 +156,16 @@ def short_stories():
 @app.route("/skyehaven/concept_art")
 def concept_art():
     return render_template("concept_art.html", concepts=get_concepts())
+
+
+@app.route("/spotify_toybox")
+def toybox():
+    fig = Figure()
+    ax = fig.subplots()
+    ax.plot([1, 2])
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    return render_template("toybox.html")
 
 
 if __name__ == "__main__":
