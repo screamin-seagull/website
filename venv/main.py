@@ -126,9 +126,11 @@ def cube_edit(cube_name):
         except scry.ScryfallError:
             error_msg = "Sorry, no cards were found matching the name " + add_input
             return render_template("edit_cube.html", edit_cube=edit_cube,
-                                   cube_name=cube_name, message=error_msg)
+                                   cube_name=cube_name, message=error_msg,
+                                   strats=strats)
         return render_template("edit_cube.html", edit_cube=edit_cube,
-                               cube_name=cube_name, add_card=add)
+                               cube_name=cube_name, add_card=add,
+                               strats=strats)
 
 
 @app.route("/bird_scraper", methods=["GET", "POST"])
