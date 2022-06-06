@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="blog-row">
+    <h2 style="text-align: left; margin-left:3%;">Project Info</h2>
+    <div class="faq-content" style="order:2;">
+        <button type="button" id="website" class="collapsible" >This Website</button>
+        <div class="collapsible-content">
+            <p><b>Languages:</b> Python, HTML, CSS, and Javascript were used
+            to create this website
+            <br><br><b>Framework:</b> This website was built on the Flask web framework for Python
+            <br><br><b>Hosting:</b> PythonAnywhere.com provides the hosting server for this website, which
+            I manually configured to work with Flask
+            <br><br><b>Future Plans:</b>  A few current projects that I host here are still incomplete, and I intend
+            to host any other things I think of later on here, too
+        </p></div>
+        <br><button type="button" id="bird" class="collapsible" >Bird Scraper</button>
+        <div class="collapsible-content">
+            <p><b>Description:</b> This is a web scraper I created that retrieves the name and image
+                of a bird from its page on ebird.org. Currently it only retrieves birds at random
+                <br><br><b>Technical:</b> This app accesses the "Surprise Me!" button from ebird.org's
+                Explore page then uses the BeautifulSoup library to search for and retrieve the needed information
+                <br><br><b>Future Plans:</b> Currently a random bird is displayed each time the homepage is loaded.
+                I would like to set it up as a "Bird of the Day" that updates once every 24 hours instead. Additionally,
+                I'll likely add some functions to the class to get more information besides just name and image
+            </p>
+        </div>
+        <br><button type="button" id="guesser" class="collapsible">Number Guesser</button>
+        <div class="collapsible-content">
+            <p><b>Description:</b> This was a way to dip my toes back into genetic algorithms with something simple.
+                You just enter a number, click "Run", and a genetic algorithm will run that creates generations of semi-random
+                guesses. Once it finishes, it tells you how long it takes to guess correctly and displays the generations
+                <br><br><b>Technical:</b> When a number is entered and the app is run, the algorithm will generate the first
+                generation completely randomly. (While the guesser class is set up to have a variable generation size, the version
+                hosted here currently only uses generations of 20.) Each of the guesses in this generation are then assigned a
+                "fitness" rating proportional to how close they are to your number. At this point the guesses with the best fitness
+                scores (also variable, but top 5 in this case) are chosen to create the next generation. This is accomplished by
+                taking these numbers and adding random mutations in the form of adding or subtracting from them within a given range
+                (in this case, mutations randomly add a number between -5 and +5). This process repeats, each generation getting more
+                accurate, until your number is guessed successfully
+                <br><br><b>Future Plans:</b> This is more of a proof of concept than a practical application, but it has opened up
+                a lot of ideas for machine learning. Eventually I'll add the ability to change the variables for generation size,
+                mutation range, and number of reproducers. Once that's completed, I'm going to look into creating a Tic Tac Toe AI
+                that learns through a genetic algorithm and by playing against users on the website
+            </p>
+        </div>
+        <br><button type="button" id="cube" class="collapsible">Cube Tool (WIP)</button>
+        <div class="collapsible-content">
+            <p><b>Description:</b> A tool to help organize Magic: the Gathering "cubes". Cubes are custom sets of cards that are
+                kept together and used to draft and build decks to play against each other. Building a properly balanced cube requires
+                the designer to be able to view statistics about the details of the cards that are being chosen. For example, what
+                color the card is and what strategies it fits into
+                <br><br><b>Technical:</b> Cube info is stored as dictionaries in .xlsx files. Card information is retrieved from Scryfall.com
+                using their API and the Scrython library for Python
+                <br><br><b>Future Plans:</b> This app is still a work in progress and is largely non-functional
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+        content.style.display = "none";
+        } else {
+        content.style.display = "block";
+        }
+    });
+    }
+</script>
+
+{% endblock %}

@@ -1,19 +1,22 @@
-import json
-import csv
-
 import pandas as pd
+from openpyxl import load_workbook
 
 
 class Cube:
-    def __init__(self, name, desc, cmdr, strats, pwd):
-        self.card_info = None
+    def __init__(self, folder, name, desc, cmdr, strats, pwd, is_new):
+        self.card_info = {}
+        self.cube_info = {}
         self.name = name
-        self.file = "venv/static/Cubes/" + name + ".xlsx"
-        self.cards_file = "venv/static/Cubes/" + name + "_cards.csv"
+        self.file = str(folder)
         self.desc = desc
         self.cmdr = cmdr
-        self.strats = strats
-        self.pwd = pwd
+        self.strats = strats.split(", ")
+        self.is_new = is_new
+        if self.is_new:
+            self.new_cube()
+            self.pwd = pwd
+
+    def new_cube(self):
         self.cube_info = pd.DataFrame({
             'cube_name': self.name,
             'cube_description': self.desc,
@@ -21,8 +24,6 @@ class Cube:
             'cube_strats': self.strats,
             'cube_pwd': self.pwd
         }, index=[0])
-
-    def write_excel(self):
         self.cube_info.to_excel(self.file, sheet_name='Cube Info', index=False)
 
     def add_card(self, card_name, card_cid, card_strats, card_tags):
@@ -33,21 +34,23 @@ class Cube:
             'card_strats': card_strats,
             'card_tags': card_tags
         }, index=[0])
-        with pd.ExcelWriter(self.file) as writer:
-            card_info.to_excel(writer, sheet_name='Cards')
-            #card_info.to_excel(self.file, sheet_name='Cards', index=False)
+        book = load_workbook(self.file)
+        writer = pd.ExcelWriter(self.file, engine='openpyxl')
+        writer.book = book
+        card_info.to_excel(writer, sheet_name='Cards')
+        writer.save()
+        writer.close()
 
 
-def get_cube(folder, cube_name):
+def load(path):
     try:
-        res_path = folder + "/" + cube_name + ".xlsx"
-        cube_info = pd.read_excel(res_path)
-        res_name = cube_info['cube_name']
-        res_desc = cube_info['cube_description']
-        res_cmdr = cube_info['cube_is_cmdr']
-        res_strats = cube_info['cube_strats']
-        res_pwd = cube_info['cube_pwd']
-        res_cube = Cube(res_name, res_desc, res_cmdr, res_strats, res_pwd)
+        cube_info = pd.read_excel(path, sheet_name='Cube Info')
+        res_name = cube_info['cube_name'][0]
+        res_desc = cube_info['cube_description'][0]
+        res_cmdr = cube_info['cube_is_cmdr'][0]
+        res_strats = cube_info['cube_strats'][0]
+        res_pwd = cube_info['cube_pwd'][0]
+        res_cube = Cube(path, res_name, res_desc, res_cmdr, res_strats, res_pwd, False)
         return res_cube
     except FileNotFoundError:
         return "No matching cube"

@@ -1,12 +1,12 @@
 import os
 from flask import Flask, render_template, request, Blueprint, flash, g, redirect, url_for
 from sqlalchemy import create_engine, MetaData
+from matplotlib.figure import Figure
+from io import BytesIO
 from guess_ai import *
 from bird_scraper import *
 from mtg_cube import *
-import pandas as pd
-import json
-import git
+from SpotifyToybox import *
 import scrython as scry
 import asyncio
 
@@ -15,7 +15,6 @@ app.config["SECRET_KEY"] = "k137p!t4"
 bp = Blueprint('blog', __name__)
 engine = create_engine('sqlite:////tmp/blog.db')
 
-cube_dir = "venv/static/Cubes"
 comic_folder = os.listdir(os.path.join(app.static_folder, "Comics"))
 
 
@@ -41,19 +40,10 @@ def default_route():
 def homepage():
     home_bird = RandomBird()
     bird_pic = home_bird.main_image
+    bird_url = home_bird.bird_url
     bird = home_bird.bird_name
     return render_template("home.html", bird_image=bird_pic,
-                           bird_name=bird)
-
-
-@app.route("/comics")
-def comic_list():
-    return render_template("all_comics.html", comics=comic_folder)
-
-
-@app.route("/comics/<id>")
-def comic_page():
-    return render_template("comic_page.html", id=id)
+                           bird_name=bird, bird_url=bird_url)
 
 
 @app.route("/guesser", methods=["GET", "POST"])
@@ -79,9 +69,9 @@ def guesser():
             return render_template("number_guesser.html", output=output)
 
 
-@app.route("/gang_info")
-def gang_info():
-    return render_template("gang_info.html")
+@app.route("/info")
+def project_info():
+    return render_template("info.html", active_project="guesser")
 
 
 @app.route("/cube_tool")
@@ -94,12 +84,13 @@ def create_cube():
     if request.method == "GET":
         return render_template("create_cube.html")
     elif request.method == "POST" and request.form["btn"] == "Create Cube":
+        folder = os.path.join(app.static_folder, 'Cubes/')
         name = request.form.get("cube_name")
         desc = request.form.get("cube_desc")
         cmdr = request.form.get("cmdr")
         strats = request.form.get("cube_strats")
         pwd = request.form.get("password")
-        Cube(name, desc, cmdr, strats, pwd)
+        Cube(folder, name, desc, cmdr, strats, pwd, True)
         return redirect("/cube_tool/view/" + name)
 
 
@@ -109,34 +100,47 @@ def cube_list():
     return render_template("cube_list.html", cubes=cubes)
 
 
-@app.route("/cube_tool/view/<cube_name>", methods=["GET", "POST"])
+@app.route("/cube_tool/view/<cube_name>")
 def cube_view(cube_name):
-    if request.method == "GET":
-        view_cube = get_cube(cube_dir, cube_name)
-        return render_template("display_cube.html", view_cube=view_cube,
-                               cube_name=cube_name)
-    elif request.method == "POST":
-        return render_template("display_cube.html")
+    cube_dir = os.path.join(app.static_folder, 'Cubes/') + cube_name + ".xlsx"
+    view_cube = load(cube_dir)
+    return render_template("display_cube.html", view_cube=view_cube,
+                           cube_name=cube_name)
 
 
 @app.route("/cube_tool/edit/<cube_name>", methods=["GET", "POST"])
 def cube_edit(cube_name):
-    edit_cube = get_cube(cube_dir, cube_name)
+    cube_dir = os.path.join(app.static_folder, 'Cubes/') + cube_name + ".xlsx"
+    edit_cube = load(cube_dir)
+    strats = edit_cube.strats
     if request.method == "GET":
         return render_template("edit_cube.html", edit_cube=edit_cube,
-                               cube_name=cube_name)
-    elif request.method == "POS T":
+                               cube_name=cube_name, strats=strats)
+    elif request.method == "POST":
         asyncio.set_event_loop(asyncio.new_event_loop())  # Check to see if I need to terminate this or anything
         add_input = request.form.get("card")
         try:
             add = scry.cards.Named(fuzzy=add_input).name()
+            print(add)
             edit_cube.add_card(add, 'UR', "Arf, Meow", "Commander")
         except scry.ScryfallError:
             error_msg = "Sorry, no cards were found matching the name " + add_input
             return render_template("edit_cube.html", edit_cube=edit_cube,
-                                   cube_name=cube_name, message=error_msg)
+                                   cube_name=cube_name, message=error_msg,
+                                   strats=strats)
         return render_template("edit_cube.html", edit_cube=edit_cube,
-                               cube_name=cube_name, add_card=add)
+                               cube_name=cube_name, add_card=add,
+                               strats=strats)
+
+
+@app.route("/bird_scraper", methods=["GET", "POST"])
+def bird_scraper():
+    bird = RandomBird()
+    bird_pic = bird.main_image
+    bird_url = bird.bird_url
+    bird_name = bird.bird_name
+    return render_template("bird_scraper.html", bird_image=bird_pic,
+                           bird_name=bird_name, bird_url=bird_url)
 
 
 @app.route("/skyehaven", methods=["GET", "POST"])
@@ -146,9 +150,24 @@ def skyehaven():
         return render_template("skyehaven.html", mode=mode)
 
 
+@app.route("/skyehaven/stories")
+def short_stories():
+    return render_template("WIP.html")
+
+
 @app.route("/skyehaven/concept_art")
 def concept_art():
     return render_template("concept_art.html", concepts=get_concepts())
+
+
+@app.route("/spotify_toybox")
+def toybox():
+    fig = Figure()
+    ax = fig.subplots()
+    ax.plot([1, 2])
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    return render_template("toybox.html")
 
 
 if __name__ == "__main__":

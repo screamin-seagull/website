@@ -5,45 +5,49 @@ body,h1,h2,h3,h4,h5
 
 h1
 {
-    font-size:3.5em;
+    font-size:3vw;
 }
 
 h2
 {
-    font-size: 2.8em;
+    font-size: 2.5vw;
 }
 
 h3
 {
-    font-size: 2em;
+    font-size: 2vw;
 }
 
 p
 {
-    font-size:1.1em;
+    font-size:1.1vw;
 }
 
 input[type=submit]
 {
-    background-color: #c9a400;
+    background-color: #661155;
     color: white;
-    padding: 14px 25px;
+    padding: .3vw .5vw;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border: 1px solid white;
+    font-size: 1vw;
+    border-radius: 0.5vw;
+    box-shadow: inset 0 0 0.3vw magenta;
 }
 
 body
 {
-    background: url(Images/tiles.png) repeat 0 0 Purple;
+    background: url(Images/hecks.png) repeat 0 0 #661155;
+    background-size: 5%;
 }
 
 header
 {
     color: White;
 }
+
 
 .blog-flex
 {
@@ -62,40 +66,30 @@ header
 
 .l-sidebar 
 {
-    position: -webkit-sticky;
     position: sticky;
     width: 15%;
-    border: 3px solid white;
+    border: 0.3vw solid #f35c00;
     color:white;
-    padding: 5px;
-    background-color: #c9a400;
+    padding: 1%;
+    background-color: #3b6042f2;
     order: 1;
-    text-align: center;
+    text-align: left;
     overflow: auto;
+    border-radius: 1vw;
 }
 
-.gray-content a
+a 
 {
-    background-color: #c9a400;
+    background-color: #661155;
     color: white;
-    padding: 14px 25px;
+    padding: .3vw .5vw;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border: 1px solid white;
-}
-
-.l-sidebar a 
-{
-    background-color: green;
-    color: white;
-    padding: 14px 25px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border: 1px solid white;
+    font-size: 1vw;
+    border-radius: 0.5vw;
+    box-shadow: inset 0 0 0.3vw magenta;
 }
 
 .blog-title
@@ -112,18 +106,18 @@ header
 {
     margin-left:auto;
     margin-right:auto;
-    position: -webkit-sticky;
     position: sticky;
     width: 80%;
-    background-color:green;
+    background-color:#3b6042f2;
     color: white;
     order: 2;
-    border: 3px solid white;
+    border: 0.3vw solid #f35c00;
     text-align: center;
     overflow: auto;
     align-items: center;
     justify-content: center;
     padding-bottom: 2em;
+    border-radius: 1vw;
 }
 
 .blog-row
@@ -135,13 +129,14 @@ header
 {
     background-color:#333333;
     color:white;
-    border:3px solid white;
+    border:0.2vw solid #f35c00;
     width:80%;
     height:100%;
     margin:auto;
     overflow: auto;
     padding:1em;
     text-align: left;
+    border-radius: 1vw;
 }
 
 .faq-content
@@ -152,8 +147,95 @@ header
     padding-left: 3em;
 }
 
-.image-container > img:hover
-{
-    height: 30em;
-    width: auto;
+.collapsible {
+    background-color: #661155;
+    color:white;
+    border:none;
+    outline:none;
+    cursor:pointer;
+    width: 60%;
+    border-radius: 0.5vw;
+    margin-top: 0.5vw;
+    text-align: left;
+    box-shadow: inset 0 0 0.4vw magenta;
+    padding: .3vw .5vw;
+    font-size: 1.2vw;
+}
+
+.collapsible-content {
+    display: none;
+    overflow: hidden;
+    background-color: #333333;
+    width: 57%;
+    margin-left: 1%;
+    padding: .3vw .5vw;
+    border-bottom-left-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
+}
+
+.collapsible-content b{
+    color:#f35c00;
+}
+
+.art-column {
+    float: left;
+    width: 8%;
+    padding: 0.1vw;
+}
+
+.art-column img {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.art-column img:hover{
+    opacity: 1;
+}
+
+.art-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.art-container {
+    position: relative;
+    display: none;
+    text-align: center;
+}
+
+#artimgtext {
+    position: absolute;
+    bottom: 1vw;
+    left: 1vw;
+    color: white;
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: 0.06vw;
+    font-weight: bold;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    color: #f35c00;
+    font-size: 2vw;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar{
+    width: 1vw;
+}
+
+::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 1vw #f35c00;
+    border-radius: 0.5vw;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#661155;
+    border-radius: 0.5vw;
+    box-shadow: inset 0 0 0.4vw magenta;
 }

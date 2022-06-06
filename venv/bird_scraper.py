@@ -15,3 +15,5 @@ class RandomBird:
         bird_title = str(bird_titles[0])
         title_len = len(bird_title)
         self.bird_name = bird_title[7:title_len-16]
+
+        self.bird_url = bird_page.request.url
