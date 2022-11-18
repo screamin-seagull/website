@@ -1,14 +1,16 @@
 import os
-from flask import Flask, render_template, request, Blueprint, flash, g, redirect, url_for
-from sqlalchemy import create_engine, MetaData
-from matplotlib.figure import Figure
-from io import BytesIO
+from flask import Flask, render_template, request, Blueprint, redirect
+from sqlalchemy import create_engine
 from guess_ai import *
 from bird_scraper import *
 from mtg_cube import *
-from SpotifyToybox import *
 import scrython as scry
 import asyncio
+import pandas as pd
+import json
+import plotly
+import plotly.express as px
+from venv import SpotifyToybox as st
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "k137p!t4"
@@ -160,14 +162,34 @@ def concept_art():
     return render_template("concept_art.html", concepts=get_concepts())
 
 
-@app.route("/spotify_toybox")
+@app.route("/spotify_toybox", methods=["GET", "POST"])
 def toybox():
-    fig = Figure()
-    ax = fig.subplots()
-    ax.plot([1, 2])
-    buf = BytesIO()
-    fig.savefig(buf, format="png")
-    return render_template("toybox.html")
+    test_file = "static/jordan_data.json"
+    testbox = st.SpotifyToybox(test_file)
+    artists, times = [], []
+    if request.method == 'GET':
+        test_times = testbox.top_artists_time(False, 8)
+        for time in test_times:
+            print(time, test_times[time])
+            artists.append(time)
+            times.append(test_times[time] / 60000)
+        print(artists, times)
+    elif request.method == 'POST':
+        toy_file = request.form.get('filename')
+        toybox = st.SpotifyToybox(toy_file)
+        toybox_times = toybox.top_artists_time(False, 8)
+        for time in toybox_times:
+            print(time, toybox_times[time])
+            artists.append(time)
+            times.append(toybox_times[time] / 60000)
+        print(artists, times)
+    df = pd.DataFrame({
+        'Artist': artists,
+        'Time': times
+    })
+    fig = px.bar(df, x='Artist', y='Time', color='Artist', width=len(artists) * 100, height=600)
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return render_template("toybox.html", graphJSON=graphJSON)
 
 
 if __name__ == "__main__":

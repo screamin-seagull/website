@@ -12,21 +12,18 @@ class SpotifyToybox:
     # convert_time converts the millisecond times to a string with Hours, Minutes, and Seconds
     # sort_desc sorts the times in descending order
     # exclude_short leaves out any track that played less than a minute
-    # Start and end dates will exclude any streams outside the given timeframe. Takes datetime.date
     def stream_time(self, convert_time=False, exclude_short=False,
-                     start_date=None, end_date=None):
+                    start_date=None, end_date=None):
         total_time = 0
         for entry in self.data:
-            playtime = entry["msPlayed"]
-            datestring = entry["endTime"][:-6]
-            play_date = datetime.strptime(datestring, '%Y-%m-%d').date()
+            playtime = entry["ms_played"]
+            date_string = entry["ts"][:10]
+            play_date = datetime.strptime(date_string, '%Y-%m-%d').date()
             if exclude_short and playtime < 60000:
                 continue
             if start_date and play_date < start_date:
                 continue
             if end_date and play_date > end_date:
-                continue
-            if exclude_short and playtime < 60000:
                 continue
             else:
                 total_time += playtime
@@ -38,21 +35,24 @@ class SpotifyToybox:
     # convert_time converts the millisecond times to a string with Hours, Minutes, and Seconds
     # sort_desc sorts the times in descending order
     # exclude_short leaves out any track that played less than a minute
-    # Start and end dates will exclude any streams outside the given timeframe. Takes datetime.date
     def artist_times(self, convert_time=False, sort_desc=False, exclude_short=False,
                      start_date=None, end_date=None):
         artists = []
         artist_times = {}
         for entry in self.data:
-            artist = entry["artistName"]
-            playtime = entry["msPlayed"]
-            datestring = entry["endTime"][:-6]
-            play_date = datetime.strptime(datestring, '%Y-%m-%d').date()
-            if exclude_short and playtime < 60000:
+            artist = entry["master_metadata_album_artist_name"]
+            playtime = entry["ms_played"]
+            # track = entry["master_metadata_track_name"]
+            date_string = entry["ts"][:10]
+            podcast = entry["episode_name"]
+            play_date = datetime.strptime(date_string, '%Y-%m-%d').date()
+            if exclude_short and playtime < 20000:
                 continue
             if start_date and play_date < start_date:
                 continue
             if end_date and play_date > end_date:
+                continue
+            if podcast:
                 continue
             if artist not in artists:
                 artists.append(artist)
@@ -69,23 +69,24 @@ class SpotifyToybox:
     # Returns how many times songs by each artist have been streamed
     # sort_desc sorts the artists in descending order of streams
     # exclude_short leaves out any track that played less than a minute
-    # Start and end dates will exclude any streams outside the given timeframe. Takes datetime.date
     def artist_streams(self, sort_desc=False, exclude_short=False,
-                     start_date=None, end_date=None):
+                       start_date=None, end_date=None):
         artists = []
         artist_streams = {}
         for entry in self.data:
-            artist = entry["artistName"]
-            playtime = entry["msPlayed"]
-            datestring = entry["endTime"][:-6]
-            play_date = datetime.strptime(datestring, '%Y-%m-%d').date()
-            if exclude_short and playtime < 60000:
+            artist = entry["master_metadata_album_artist_name"]
+            track = entry["master_metadata_track_name"]
+            playtime = entry["ms_played"]
+            date_string = entry["ts"][:10]
+            podcast = entry["episode_name"]
+            play_date = datetime.strptime(date_string, '%Y-%m-%d').date()
+            if exclude_short and playtime < 20000:
                 continue
             if start_date and play_date < start_date:
                 continue
             if end_date and play_date > end_date:
                 continue
-            if exclude_short and playtime < 60000:
+            if podcast:
                 continue
             if artist not in artists:
                 artists.append(artist)
@@ -146,3 +147,11 @@ def combine_json(files=[], new_filename="combined.json"):
             res_file.extend(json.load(addfile))
     with open(new_filename, 'w', encoding='utf-8') as output:
         json.dump(res_file, output)
+
+
+# Takes a json file and removes all data not relevant to this library
+# Combined files tend to be extremely large and hard to work with
+def clean_json(file, new_file="clean.json"):
+    with open(file, 'r', encoding='utf-8') as readfile:
+        content = json.load(readfile)
+        print(content)

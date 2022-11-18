@@ -6,5 +6,19 @@
 
 {% block body %}
 <h1>Spotify Toybox</h1>
-
+<a href="/info"> ->About<- </a><br><br>
+<div class="faq-content" style="order:2;">
+    <div class="gray-content">
+        <form action="{{ url_for('toybox') }}" method="POST">
+            <input type="file" id="SpotJSON" name="filename" accept=".json">
+            <input type="submit">
+        </form>
+        <div id="chart" class="chart" style="width: 75%; height:auto; padding:2%;"></div>
+    </div>
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+    var graphs = {{ graphJSON | safe }};
+    Plotly.plot('chart',graphs,{});
+</script>
 {% endblock %}
